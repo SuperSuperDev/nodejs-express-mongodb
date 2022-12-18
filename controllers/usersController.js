@@ -1,10 +1,9 @@
 import User from '../models/userModel.js'
-import { NotValid } from '../lib/errors.js'
+import { NotFound, NotValid } from '../lib/errors.js'
 import { secret } from '../config/environment.js'
 import jwt from 'jsonwebtoken'
 
 //* Registering a user
-
 async function register(req, res, next) {
   try {
     const newUser = await User.create(req.body)
@@ -51,8 +50,23 @@ async function list(req, res, next) {
   }
 }
 
+// whoAmI is a function that will be used to check if a user is logged in
+// and if so, return their user object
+async function whoAmI(req, res, next) {
+  try {
+    const user = await User.findById(req.currentUser._id)
+    if (!user) {
+      throw new NotFound('User not found.')
+    }
+    res.status(200).json(user)
+  } catch (e) {
+    next(e)
+  }
+}
+
 export default {
   login,
   register,
   list,
+  whoAmI,
 }

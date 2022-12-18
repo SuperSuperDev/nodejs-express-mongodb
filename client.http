@@ -1,5 +1,7 @@
 @baseUrl = http://localhost:4000/api
+@userToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MzllZmRiY2YxYThkMThiM2NkYjdiOGIiLCJpYXQiOjE2NzEzNzA2MTksImV4cCI6MTY3MTQxMzgxOX0.iebzsN6vj1mDsazsOMyG9MyWuJ5S39mtD1qFWOpQTTA
 
+@postId = 639f1db57bc8e6305f344333
 ### USER REGISTER
 POST {{baseUrl}}/register
 Content-Type: application/json
@@ -11,8 +13,67 @@ Content-Type: application/json
     "passwordConfirmation": "testpassword"
 }
 
-### USERS
+### USER LOGIN
+POST {{baseUrl}}/login
+Content-Type: application/json
+
+{
+    "email": "user1@test.com",
+    "password": "pass"
+}
+
+### WHO AM I
+GET {{baseUrl}}/whoami
+Content-Type: application/json
+Authorization: Bearer {{userToken}}
+
+### ALL USERS
 GET {{baseUrl}}/users
 Content-Type: application/json
 
 
+### ALL POSTS
+GET {{baseUrl}}/posts
+Content-Type: application/json
+
+### CREATE POST
+POST {{baseUrl}}/posts
+Content-Type: application/json
+Authorization: Bearer {{userToken}}
+
+{
+    "title": "Test Post",
+    "content": "Test Content",
+    "image": "https://images.unsplash.com/photo-1629200000000"
+}
+
+### GET POST
+GET {{baseUrl}}/posts/{{postId}}
+Content-Type: application/json
+
+### UPDATE POST
+PUT {{baseUrl}}/posts/{{postId}}
+Content-Type: application/json
+Authorization: Bearer {{userToken}}
+
+{
+    "title": "Updated Post",
+    "content": "Updated Test Content",
+    "image": "https://images.unsplash.com/photo-1629200000000"
+}
+
+### UPDATE POST again
+PUT {{baseUrl}}/posts/{{postId}}
+Content-Type: application/json
+Authorization: Bearer {{userToken}}
+
+{
+    "title": "Updated Post Again",
+    "content": "Updated Test Content Again",
+    "image": "https://images.unsplash.com/photo-1629200000000"
+}
+
+### DELETE POST
+DELETE {{baseUrl}}/posts/{{postId}}
+Content-Type: application/json
+Authorization: Bearer {{userToken}}

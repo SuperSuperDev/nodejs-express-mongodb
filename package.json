@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "npx nodemon server.js --no-cache",
     "test": "node --experimental-vm-modules --no-warnings  node_modules/.bin/jest -i --verbose --watch",
-    "start": "NODE_ENV=production && node server.js"
+    "start": "NODE_ENV=production && node server.js",
+    "seed:dev": "node db/seed.js"
   },
   "keywords": [
     "nodejs",

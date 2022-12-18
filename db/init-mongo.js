@@ -4,7 +4,7 @@ db.createUser({
   pwd: 'Admin1',
   roles: [
     {
-      role: 'readWrite',
+      role: 'dbOwner',
       db: 'mevn-db',
     },
   ],
